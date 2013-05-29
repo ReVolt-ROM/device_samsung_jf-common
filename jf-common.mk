@@ -79,6 +79,21 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libnetcmdiface
 
+# NFC packages
+PRODUCT_PACKAGES += \
+    libnfc-nci \
+    libnfc_nci_jni \
+    nfc_nci.msm8960 \
+    NfcNci \
+    Tag \
+    com.android.nfc_extras
+
+# NFCEE access control + configuration
+NFCEE_ACCESS_PATH := device/samsung/jf-common/nfc/nfcee_access.xml
+PRODUCT_COPY_FILES += \
+    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml \
+    device/samsung/jf-common/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf
+
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
@@ -141,7 +156,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.rild.nitz_short_ons_0="" \
     persist.rild.nitz_short_ons_1="" \
     persist.rild.nitz_short_ons_2="" \
-    persist.rild.nitz_short_ons_3=""
+    persist.rild.nitz_short_ons_3="" \
+    ro.telephony.ril.v3=newDriverCall
 
 # common msm8960
 $(call inherit-product, device/samsung/msm8960-common/msm8960.mk)
