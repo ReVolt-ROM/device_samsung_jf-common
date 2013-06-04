@@ -24,4 +24,5 @@
     <bool name="enableZSL">true</bool>
     <!-- Magic for enabling ZSL on Samsung cameras -->
     <bool name="sendMagicSamsungZSLCommand">true</bool>
+    <bool name="enableAspectRatioFixes">true</bool>
 </resources>
