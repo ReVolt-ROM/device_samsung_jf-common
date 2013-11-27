@@ -16,8 +16,8 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-## Get non-open-source specific aspects
-$(call inherit-product, vendor/samsung/jf-common/jf-common-vendor.mk)
+## (2) Also get non-open-source specific aspects if available
+$(call inherit-product-if-exists, vendor/samsung/jf-common/jf-common-vendor.mk)
 
 ## overlays
 DEVICE_PACKAGE_OVERLAYS += device/samsung/jf-common/overlay
@@ -39,6 +39,11 @@ PRODUCT_COPY_FILES += \
     device/samsung/jf-common/audio/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
     device/samsung/jf-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml
+
+# Wifi
+PRODUCT_COPY_FILES += \
+    device/samsung/jf-common/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    device/samsung/jf-common/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
 # Media Profile
 PRODUCT_COPY_FILES += \
@@ -73,6 +78,7 @@ PRODUCT_PACKAGES += \
     initlogo.rle \
     init.bt.rc \
     init.carrier.rc \
+    init.crda.rc \
     init.qcom.rc \
     init.qcom.usb.rc \
     init.target.rc \
@@ -84,7 +90,10 @@ PRODUCT_PACKAGES += Torch
 # Wifi
 PRODUCT_PACKAGES += \
     libnetcmdiface \
-    macloader
+    macloader \
+    crda \
+    regulatory.bin \
+    linville.key.pub.pem
 
 # NFC packages
 PRODUCT_PACKAGES += \
@@ -128,6 +137,11 @@ PRODUCT_PACKAGES += qrngd
 
 # Prepatch to fix BT/WiFi bus lockups
 PRODUCT_COPY_FILES += device/samsung/jf-common/bluetooth/bcm4335_prepatch.hcd:system/vendor/firmware/bcm4335_prepatch.hcd
+
+# enable repeatable keys in cwm
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.cwm.enable_key_repeat=true \
+    ro.cwm.repeatable_keys=114,115
 
 #common build.props
 PRODUCT_PROPERTY_OVERRIDES += \

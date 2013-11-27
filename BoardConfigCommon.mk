@@ -43,6 +43,7 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_FSTAB := device/samsung/jf-common/rootdir/etc/fstab.qcom
 
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -80,6 +81,9 @@ BOARD_USES_SEPERATED_VOIP := true
 
 # Use seperate devices for 3-pole headset
 BOARD_USES_SEPERATED_HEADSET_MIC := true
+
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
